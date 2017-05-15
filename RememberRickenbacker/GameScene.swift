@@ -12,7 +12,7 @@ import CoreMotion
 
 class GameScene: SKScene {
 
-    let player = SKSpriteNode(imageNamed: "goodGuy005")
+    let player = SKSpriteNode(imageNamed: "goodGuy006")
     var motionManager = CMMotionManager()
     var destX:CGFloat  = 0.0
     var destY:CGFloat  = 0.0
