@@ -22,11 +22,9 @@ class GameScene: SKScene {
         
         makeBackgroundLayer(filename: "background", speed: 9, layer: 0)
         makeBackgroundLayer(filename: "wispbg", speed: 4, layer: 1)
-
-        physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         setupShip()
         
-        // Create motion manager to control player momvement
+        // start collecting updates to motion manager
         motionManager.startAccelerometerUpdates()
         
     }
@@ -72,7 +70,6 @@ class GameScene: SKScene {
         let movingAndReplacingBG = SKAction.repeatForever(SKAction.sequence([shiftBG,replaceBG]))
         
         for i in 0 ..< 3 {
-            //defining background; giving it width and moving height
             let background = SKSpriteNode(texture:bgLayer)
             let iFloat = CGFloat(i)
             background.position = CGPoint(x: self.frame.midX, y: bgLayer.size().height/2 + (bgLayer.size().height * iFloat))
