@@ -11,92 +11,98 @@ import GameplayKit
 import CoreMotion
 
 class GameScene: SKScene {
-
-    let player = SKSpriteNode(imageNamed: "goodGuy006")
+    
+    // Global variables
+    let ShipName = "player"
     var motionManager = CMMotionManager()
-    var destX:CGFloat  = 0.0
-    var destY:CGFloat  = 0.0
-    
-    var gameArea: CGRect
-    
-    override init(size: CGSize) {
-        
-        let maxAspectRatio: CGFloat = 16.0/9.0
-        let playableWidth = size.height / maxAspectRatio
-        let margin = (size.width - playableWidth) / 2
-        gameArea = CGRect(x: margin, y: 0, width: playableWidth, height: size.height)
-        
-        super.init(size: size)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func didMove(to view: SKView) {
         
-        let background = SKSpriteNode (imageNamed: "backgroundIMG")
-        background.size = self.size
-        background.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
-        background.zPosition = 0
-        self.addChild(background)
+        physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         
-        player.setScale(0.6)
-        player.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
-        player.zPosition = 2
-        self.addChild(player)
+        makeBackgroundLayer(filename: "background", speed: 9, layer: 0)
+        makeBackgroundLayer(filename: "wispbg", speed: 4, layer: 1)
+
+        physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
+        setupShip()
         
-        if motionManager.isAccelerometerAvailable == true {
-            motionManager.startAccelerometerUpdates(to: OperationQueue.current!, withHandler:{
-                data, error in
-                
-                let currentX = self.player.position.x
-                let currentY = self.player.position.y
-                self.destX = currentX + CGFloat((data?.acceleration.x)! * 1500)
-                self.destY = currentY + CGFloat((data?.acceleration.y)! * 1500)
-                
-            })
-        }
+        // Create motion manager to control player momvement
+        motionManager.startAccelerometerUpdates()
+        
     }
     
+    func setupShip() {
+        let player = makeShip()
+        player.position = CGPoint(x: self.size.width/2.0, y: self.size.height/2.0)
+        player.zPosition = 2
+        addChild(player)
+    }
+    
+    func makeShip() -> SKNode {
+        let player = SKSpriteNode(imageNamed: "goodGuy006")
+        player.name = ShipName
+        player.setScale(0.6)
+        player.physicsBody = SKPhysicsBody(rectangleOf: player.frame.size)
+        player.physicsBody!.isDynamic = true
+        player.physicsBody!.affectedByGravity = false
+        player.physicsBody!.mass = 1
+        return player
+    }
+
     func fireBlaster() {
+        if let player = childNode(withName: ShipName){
         let blaster = SKSpriteNode(imageNamed: "blaster")
         blaster.setScale(1)
         blaster.position = player.position
         blaster.zPosition = 1
         self.addChild(blaster)
     
-        let moveBlaster = SKAction.moveTo(y: self.size.height + blaster.size.height, duration: 1)
+        let moveBlaster = SKAction.moveTo(y: self.size.height + player.position.y, duration: 1)
         let deletBlaster = SKAction.removeFromParent()
         
         let blasterSequence = SKAction.sequence([moveBlaster, deletBlaster])
         blaster.run(blasterSequence)
-        
+        }
     }
     
+    func makeBackgroundLayer(filename: String, speed: TimeInterval, layer: Int) {
+        let bgLayer = SKTexture(imageNamed: filename)
+        let shiftBG = SKAction.moveBy(x: 0, y: -bgLayer.size().height, duration: speed)
+        let replaceBG = SKAction.moveBy(x:0, y: bgLayer.size().height, duration: 0)
+        let movingAndReplacingBG = SKAction.repeatForever(SKAction.sequence([shiftBG,replaceBG]))
+        
+        for i in 0 ..< 3 {
+            //defining background; giving it width and moving height
+            let background = SKSpriteNode(texture:bgLayer)
+            let iFloat = CGFloat(i)
+            background.position = CGPoint(x: self.frame.midX, y: bgLayer.size().height/2 + (bgLayer.size().height * iFloat))
+            background.size.width = self.frame.width
+            background.zPosition = CGFloat(layer)
+            background.run(movingAndReplacingBG)
+            
+            self.addChild(background)
+        }
+    }
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         fireBlaster()
     }
     
-    override func update(_ currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
-        var action = SKAction.moveTo(x: destX, duration: 0.5)
-        self.player.run(action)
-        action = SKAction.moveTo(y: destY, duration: 0.5)
-        self.player.run(action)
-        
-        if player.position.x > gameArea.maxX {
-            player.position.x = gameArea.maxX
-        }
-        if player.position.x < gameArea.minX {
-            player.position.x = gameArea.minX
-        }
-        if player.position.y > gameArea.maxY {
-            player.position.y = gameArea.maxY
-        }
-        if player.position.y < gameArea.minY {
-            player.position.y = gameArea.minY
+    func processUserMotion(forUpdate currentTime: CFTimeInterval) {
+        if let player = childNode(withName: ShipName) as? SKSpriteNode {
+            if let data = motionManager.accelerometerData {
+                if fabs(data.acceleration.x) > 0.02 {
+                    player.physicsBody!.applyForce(CGVector(dx: 2000 * CGFloat(data.acceleration.x), dy: 0))
+                }
+                if fabs(data.acceleration.y) > 0.02 {
+                    player.physicsBody!.applyForce(CGVector(dx: 0, dy: 2000 * CGFloat(data.acceleration.y)))
+                }
+            }
         }
     }
     
+    override func update(_ currentTime: CFTimeInterval) {
+        processUserMotion(forUpdate: currentTime)
+
+    }
 }
