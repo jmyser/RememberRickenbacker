@@ -34,7 +34,7 @@ class GameScene: SKScene {
     func setupShip() {
         let player = makeShip()
         player.position = CGPoint(x: self.size.width/2.0, y: self.size.height/2.0)
-        player.zPosition = 2
+        player.zPosition = 3
         addChild(player)
     }
     
@@ -54,7 +54,7 @@ class GameScene: SKScene {
         let blaster = SKSpriteNode(imageNamed: "blaster")
         blaster.setScale(1)
         blaster.position = player.position
-        blaster.zPosition = 1
+        blaster.zPosition = 2
         self.addChild(blaster)
     
         let moveBlaster = SKAction.moveTo(y: self.size.height + player.position.y, duration: 1)
@@ -92,10 +92,10 @@ class GameScene: SKScene {
         if let player = childNode(withName: ShipName) as? SKSpriteNode {
             if let data = motionManager.accelerometerData {
                 if fabs(data.acceleration.x) > 0.02 {
-                    player.physicsBody!.applyForce(CGVector(dx: 2000 * CGFloat(data.acceleration.x), dy: 0))
+                    player.physicsBody!.applyImpulse(CGVector(dx: 100 * CGFloat(data.acceleration.x), dy: 0))
                 }
                 if fabs(data.acceleration.y) > 0.02 {
-                    player.physicsBody!.applyForce(CGVector(dx: 0, dy: 2000 * CGFloat(data.acceleration.y)))
+                    player.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 100 * CGFloat(data.acceleration.y)))
                 }
             }
         }
