@@ -57,7 +57,7 @@ This is an iOS game and as such it will have a very wide audience.  Gameplay sho
 + Description
    The user will be able to fire a variety of weapons to eliminate enemy ships.
 + Inputs
-   There will be a fire button and another button to select different weapons
+   There will be a fire button and another button to select different weapons.  Debating placing buttons for all weapons on screen that only activate at certain points.
 + Outputs
    Based on the selected weapon, the fire button will fire the weapon.
 + Criticality
@@ -73,7 +73,7 @@ This is an iOS game and as such it will have a very wide audience.  Gameplay sho
 + Inputs
    Enemies are spawned automatically when the game loads.
 + Outputs
-   Once spawned, the enemies will fly randomly and *possibly* fire at the player ship.
+   Once spawned, the enemies will fly randomly and possibly fire at the player ship. There will also be various classes of enemies with different difficulty levels
 + Criticality
    This will be very important to the functionality of the game.
 + Risks
@@ -87,7 +87,7 @@ This is an iOS game and as such it will have a very wide audience.  Gameplay sho
 + Inputs
    Every enemy destroyed
 + Outputs
-   Increment score
+   Increment score.  Also hope to have a high scores section and a nice to have feature would be community scoreboard
 + Criticality
    Not a critical feature at this time, but may become one in the future.
 + Risks
@@ -140,6 +140,12 @@ iOS projects are set up to target certain minimum versions of iOS so there shoul
 ### 5.9 Development Process Constraints
 This will be developed on an Apple Mac computer using Xcode and specifically the Sprite Kit package.  It is technically possible to develop iOS applications on other platforms, but at this time I am already using those tools so it will be a seamless project on this front.
 
+#### Packages Being Used
+Package | Use
+---|---
+SpriteKit | Provides the basic building blocks for a 2d based game 
+GameplayKit | Contains tools for collisions and event based actions
+CoreMotion | Handles physics based movement
 
 ## 6. System Models
 
