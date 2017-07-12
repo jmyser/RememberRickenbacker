@@ -12,6 +12,13 @@ import CoreMotion
 
 class GameScene: SKScene {
     
+    func random() -> CGFloat {
+        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
+    }
+    func random(min: CGFloat, max: CGFloat) -> CGFloat {
+        return random() * (max - min) + min
+    }
+    
     // Global variables
     let ShipName = "player"
     var motionManager = CMMotionManager()
@@ -27,6 +34,15 @@ class GameScene: SKScene {
         // start collecting updates to motion manager
         motionManager.startAccelerometerUpdates()
         
+        startNewLevel()
+    }
+    
+    func startNewLevel(){
+        let spawn = SKAction.run(spawnEnemy)
+        let waitToSpawn = SKAction.wait(forDuration: 3)
+        let spawnSequence = SKAction.sequence([spawn, waitToSpawn])
+        let spawnForever = SKAction.repeatForever(spawnSequence)
+        self.run(spawnForever)
     }
     
     func setupShip() {
@@ -43,7 +59,7 @@ class GameScene: SKScene {
         player.physicsBody = SKPhysicsBody(rectangleOf: player.frame.size)
         player.physicsBody!.isDynamic = true
         player.physicsBody!.affectedByGravity = false
-        player.physicsBody!.mass = 1
+        player.physicsBody!.mass = 0.1
         return player
     }
 
@@ -61,6 +77,32 @@ class GameScene: SKScene {
         let blasterSequence = SKAction.sequence([moveBlaster, deletBlaster])
         blaster.run(blasterSequence)
         }
+    }
+    
+    func spawnEnemy(){
+        let randomXStart = random(min: frame.minX, max: frame.maxX)
+        let randomXEnd = random(min: frame.minX, max: frame.maxX)
+        
+        let startPoint = CGPoint(x: randomXStart, y:self.size.height * 1.2)
+        let endPoint = CGPoint(x: randomXEnd, y: -self.size.height * 0.2)
+        
+        let enemy = SKSpriteNode(imageNamed: "badguy_FINAL")
+        enemy.setScale(0.5)
+        enemy.position = startPoint
+        enemy.zPosition = 2
+        self.addChild(enemy)
+        
+        let moveEnemy = SKAction.move(to: endPoint, duration: 2.5)
+        let deleteEnemy = SKAction.removeFromParent()
+        let enemySequence = SKAction.sequence([moveEnemy, deleteEnemy])
+        enemy.run(enemySequence)
+        
+        let dx = endPoint.x - startPoint.x
+        let dy = endPoint.y - startPoint.y
+        
+        let amtRotate = atan2(dy, dx)
+        
+        enemy.zRotation = amtRotate
     }
     
     func makeBackgroundLayer(filename: String, speed: TimeInterval, layer: Int) {
@@ -89,10 +131,10 @@ class GameScene: SKScene {
         if let player = childNode(withName: ShipName) as? SKSpriteNode {
             if let data = motionManager.accelerometerData {
                 if fabs(data.acceleration.x) > 0.02 {
-                    player.physicsBody!.applyImpulse(CGVector(dx: 100 * CGFloat(data.acceleration.x), dy: 0))
+                    player.physicsBody!.applyImpulse(CGVector(dx: 10 * CGFloat(data.acceleration.x), dy: 0))
                 }
                 if fabs(data.acceleration.y) > 0.02 {
-                    player.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 100 * CGFloat(data.acceleration.y)))
+                    player.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 10 * CGFloat(data.acceleration.y)))
                 }
             }
         }
