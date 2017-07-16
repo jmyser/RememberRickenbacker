@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		835A592E1F1B16FD00E64D26 /* Quantico-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 835A592D1F1B16FD00E64D26 /* Quantico-Bold.otf */; };
 		83AD23261EC6B0F500CDC789 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AD23251EC6B0F500CDC789 /* AppDelegate.swift */; };
 		83AD23281EC6B0F500CDC789 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 83AD23271EC6B0F500CDC789 /* GameScene.sks */; };
 		83AD232A1EC6B0F500CDC789 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 83AD23291EC6B0F500CDC789 /* Actions.sks */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		835A592D1F1B16FD00E64D26 /* Quantico-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quantico-Bold.otf"; sourceTree = "<group>"; };
 		83AD23221EC6B0F500CDC789 /* RememberRickenbacker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RememberRickenbacker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83AD23251EC6B0F500CDC789 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83AD23271EC6B0F500CDC789 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				83AD23291EC6B0F500CDC789 /* Actions.sks */,
 				83AD232B1EC6B0F500CDC789 /* GameScene.swift */,
 				83AD232D1EC6B0F500CDC789 /* GameViewController.swift */,
+				835A592D1F1B16FD00E64D26 /* Quantico-Bold.otf */,
 				83AD232F1EC6B0F500CDC789 /* Main.storyboard */,
 				83AD23321EC6B0F500CDC789 /* Assets.xcassets */,
 				83AD23341EC6B0F500CDC789 /* LaunchScreen.storyboard */,
@@ -246,6 +249,7 @@
 			files = (
 				83AD23311EC6B0F500CDC789 /* Main.storyboard in Resources */,
 				83AD23281EC6B0F500CDC789 /* GameScene.sks in Resources */,
+				835A592E1F1B16FD00E64D26 /* Quantico-Bold.otf in Resources */,
 				83AD23331EC6B0F500CDC789 /* Assets.xcassets in Resources */,
 				83AD23361EC6B0F500CDC789 /* LaunchScreen.storyboard in Resources */,
 				83AD232A1EC6B0F500CDC789 /* Actions.sks in Resources */,
@@ -532,6 +536,7 @@
 				83AD23521EC6B0F500CDC789 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		83AD23531EC6B0F500CDC789 /* Build configuration list for PBXNativeTarget "RememberRickenbackerTests" */ = {
 			isa = XCConfigurationList;
@@ -540,6 +545,7 @@
 				83AD23551EC6B0F500CDC789 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		83AD23561EC6B0F500CDC789 /* Build configuration list for PBXNativeTarget "RememberRickenbackerUITests" */ = {
 			isa = XCConfigurationList;
@@ -548,6 +554,7 @@
 				83AD23581EC6B0F500CDC789 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
