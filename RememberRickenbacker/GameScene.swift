@@ -10,9 +10,11 @@ import SpriteKit
 import GameplayKit
 import CoreMotion
 
+var gameScore = 0
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    var gameScore = 0
+    
     var livesNumber = 4
     var levelNumber = 0
     var levelThreshHold = 50
@@ -21,6 +23,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let livesLabel = SKLabelNode(fontNamed: "Quantico Bold")
     let levelUpLabel = SKLabelNode(fontNamed: "Quantico Bold")
     let gameOverLabel = SKLabelNode(fontNamed: "Quantico Bold")
+    
+    enum gameState{
+        case beforeGame
+        case duringGame
+        case afterGame
+    }
+    
+    var currentGameState = gameState.duringGame
     
     func random() -> CGFloat {
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
@@ -40,6 +50,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var motionManager = CMMotionManager()
     
     override func didMove(to view: SKView) {
+        
+        gameScore = 0
         
         self.physicsWorld.contactDelegate = self
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
@@ -84,7 +96,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         livesLabel.text = "Lives: \(livesNumber)"
         
         if livesNumber == 0 {
-            
+            currentGameState = gameState.afterGame
             gameOverLabel.text = "GAME OVER"
             gameOverLabel.fontSize = 100
             gameOverLabel.fontColor = SKColor.white
@@ -92,6 +104,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             gameOverLabel.position = CGPoint(x: self.size.width*0.5, y: self.size.height*0.5)
             gameOverLabel.zPosition = 30
             self.addChild(gameOverLabel)
+            
+            let changeSceneAction = SKAction.run(changeScene)
+            let waitToChangeScene = SKAction.wait(forDuration: 3)
+            let changeSceneSeq = SKAction.sequence([waitToChangeScene,changeSceneAction])
+            self.run(changeSceneSeq)
+            
         }
         else {
             setupShip()
@@ -99,15 +117,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    func runGameOver(){
-//        self.removeAllActions()
-//        self.enumerateChildNodes(withName: "Blaster", using: #imageLiteral(resourceName: "blaster")){
-//            #imageLiteral(resourceName: "blaster").removeAllActions()
-//        }
-//        self.enumerateChildNodes(withName: "Enemy", using: enemy){
-//            enemy.removeAllActions()
-//        }
-        
+    func changeScene(){
+        let sceneToMoveTo = GameOverScene(size: self.size)
+        sceneToMoveTo.scaleMode = self.scaleMode
+        let transition = SKTransition.fade(withDuration: 2)
+        self.view!.presentScene(sceneToMoveTo, transition: transition)
     }
     
     func addScore(){
@@ -122,8 +136,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func subtractScore(){
-        gameScore -= 1
-        scoreLabel.text = "Score: \(gameScore)"
+        if currentGameState == gameState.duringGame{
+            gameScore -= 1
+            scoreLabel.text = "Score: \(gameScore)"
+        }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -217,6 +233,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.position = CGPoint(x: self.size.width/2.0, y: self.size.height * 0.2)
         player.zPosition = 3
         addChild(player)
+        let scaleUp = SKAction.scale(to: 1.0, duration: 0.2)
+        let scaleDown = SKAction.scale(to: 0.6, duration: 0.2)
+        let scaleSequence = SKAction.sequence([scaleUp, scaleDown])
+        player.run(scaleSequence)
     }
     
     func makeShip() -> SKNode {
