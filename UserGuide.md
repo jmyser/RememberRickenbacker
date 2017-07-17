@@ -1,4 +1,4 @@
-![logo](https://github.com/jermyser/RememberRickenbacker/blob/master/logo.jpg "logo")
+![logo](https://github.com/jmyser/RememberRickenbacker/blob/master/logo.jpg "logo")
 An iOS Space Shooter
 
 ---
