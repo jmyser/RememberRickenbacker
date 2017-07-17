@@ -10,6 +10,8 @@
 		835A592E1F1B16FD00E64D26 /* Quantico-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 835A592D1F1B16FD00E64D26 /* Quantico-Bold.otf */; };
 		835A59301F1C794D00E64D26 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835A592F1F1C794D00E64D26 /* GameOverScene.swift */; };
 		835A59321F1C7DCC00E64D26 /* bgBlur.png in Resources */ = {isa = PBXBuildFile; fileRef = 835A59311F1C7DCC00E64D26 /* bgBlur.png */; };
+		835A59341F1D4BEA00E64D26 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 835A59331F1D4BEA00E64D26 /* logo.png */; };
+		835A59361F1D4BF400E64D26 /* upgradeCube.png in Resources */ = {isa = PBXBuildFile; fileRef = 835A59351F1D4BF400E64D26 /* upgradeCube.png */; };
 		83AD23261EC6B0F500CDC789 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AD23251EC6B0F500CDC789 /* AppDelegate.swift */; };
 		83AD23281EC6B0F500CDC789 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 83AD23271EC6B0F500CDC789 /* GameScene.sks */; };
 		83AD232A1EC6B0F500CDC789 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 83AD23291EC6B0F500CDC789 /* Actions.sks */; };
@@ -43,6 +45,8 @@
 		835A592D1F1B16FD00E64D26 /* Quantico-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quantico-Bold.otf"; sourceTree = "<group>"; };
 		835A592F1F1C794D00E64D26 /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameOverScene.swift; path = ../GameOverScene.swift; sourceTree = "<group>"; };
 		835A59311F1C7DCC00E64D26 /* bgBlur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bgBlur.png; sourceTree = "<group>"; };
+		835A59331F1D4BEA00E64D26 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		835A59351F1D4BF400E64D26 /* upgradeCube.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upgradeCube.png; sourceTree = "<group>"; };
 		83AD23221EC6B0F500CDC789 /* RememberRickenbacker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RememberRickenbacker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83AD23251EC6B0F500CDC789 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83AD23271EC6B0F500CDC789 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -115,8 +119,10 @@
 				83AD232B1EC6B0F500CDC789 /* GameScene.swift */,
 				835A592F1F1C794D00E64D26 /* GameOverScene.swift */,
 				83AD232D1EC6B0F500CDC789 /* GameViewController.swift */,
+				835A59351F1D4BF400E64D26 /* upgradeCube.png */,
 				835A592D1F1B16FD00E64D26 /* Quantico-Bold.otf */,
 				83AD232F1EC6B0F500CDC789 /* Main.storyboard */,
+				835A59331F1D4BEA00E64D26 /* logo.png */,
 				83AD23321EC6B0F500CDC789 /* Assets.xcassets */,
 				835A59311F1C7DCC00E64D26 /* bgBlur.png */,
 				83AD23341EC6B0F500CDC789 /* LaunchScreen.storyboard */,
@@ -253,10 +259,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				835A59361F1D4BF400E64D26 /* upgradeCube.png in Resources */,
 				835A59321F1C7DCC00E64D26 /* bgBlur.png in Resources */,
 				83AD23311EC6B0F500CDC789 /* Main.storyboard in Resources */,
 				83AD23281EC6B0F500CDC789 /* GameScene.sks in Resources */,
 				835A592E1F1B16FD00E64D26 /* Quantico-Bold.otf in Resources */,
+				835A59341F1D4BEA00E64D26 /* logo.png in Resources */,
 				83AD23331EC6B0F500CDC789 /* Assets.xcassets in Resources */,
 				83AD23361EC6B0F500CDC789 /* LaunchScreen.storyboard in Resources */,
 				83AD232A1EC6B0F500CDC789 /* Actions.sks in Resources */,

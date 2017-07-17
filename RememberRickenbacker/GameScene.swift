@@ -30,7 +30,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case afterGame
     }
     
+    enum weaponsUpgrade{
+        case normalBlaster
+        case upgradeBlaster
+    }
+    
     var currentGameState = gameState.duringGame
+    var currentWeapon = weaponsUpgrade.normalBlaster
     
     func random() -> CGFloat {
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
@@ -43,7 +49,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         static let None : UInt32 = 0
         static let Player : UInt32 = 0b1 // 1
         static let Blaster : UInt32 = 0b10 // 2
-        static let Enemy : UInt32 = 0b100 // 4
+        static let TriBlaster : UInt32 = 0b100 // 4
+        static let Enemy : UInt32 = 0b10000 // 16
+        static let UpgradeCube : UInt32 = 0b1000000 // 32
     }
     
     let ShipName = "player"
@@ -172,8 +180,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             body2.node?.removeFromParent()
         }
         
+        if body1.categoryBitMask == PhysicsCategories.Player && body2.categoryBitMask == PhysicsCategories.UpgradeCube{
+            //player hits upgradeCube
+            if body2.node != nil {
+                currentWeapon = weaponsUpgrade.upgradeBlaster
+            }
+            body2.node?.removeFromParent()
+        }
+        
         if body1.categoryBitMask == PhysicsCategories.Blaster && body2.categoryBitMask == PhysicsCategories.Enemy && (body2.node?.position.y)! < self.size.height{
             //blaster hits enemy
+            addScore()
+            if body2.node != nil {
+                spawnExplosion(spawnPosition: body2.node!.position)
+            }
+            
+            body1.node?.removeFromParent()
+            body2.node?.removeFromParent()
+        }
+        
+        if body1.categoryBitMask == PhysicsCategories.TriBlaster && body2.categoryBitMask == PhysicsCategories.Enemy && (body2.node?.position.y)! < self.size.height{
+            //tri blaster hits enemy
             addScore()
             if body2.node != nil {
                 spawnExplosion(spawnPosition: body2.node!.position)
@@ -201,6 +228,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func startNewLevel(){
         levelNumber += 1
+        
+        if levelNumber > 1 && currentWeapon == weaponsUpgrade.normalBlaster{
+            spawnUpgradeCube()
+        }
         
         if self.action(forKey: "enemyKey") != nil{
             self.removeAction(forKey: "enemyKey")
@@ -278,6 +309,65 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func triBlaster() {
+        if let player = childNode(withName: ShipName){
+            
+            let triBlaster = SKSpriteNode(imageNamed: "blaster")
+            triBlaster.name = "TriBlaster"
+            triBlaster.setScale(0.75)
+            triBlaster.position = player.position
+            triBlaster.zPosition = 2
+            triBlaster.physicsBody = SKPhysicsBody(rectangleOf: triBlaster.frame.size)
+            triBlaster.physicsBody!.affectedByGravity = false
+            triBlaster.physicsBody!.categoryBitMask = PhysicsCategories.TriBlaster
+            triBlaster.physicsBody!.collisionBitMask = PhysicsCategories.None
+            triBlaster.physicsBody!.contactTestBitMask = PhysicsCategories.Enemy
+            self.addChild(triBlaster)
+            
+            let triBlaster_left = SKSpriteNode(imageNamed: "blaster")
+            triBlaster_left.name = "TriBlaster_Left"
+            triBlaster_left.setScale(0.75)
+            triBlaster_left.position = player.position
+            triBlaster_left.zPosition = 2
+            triBlaster_left.physicsBody = SKPhysicsBody(rectangleOf: triBlaster_left.frame.size)
+            triBlaster_left.physicsBody!.affectedByGravity = false
+            triBlaster_left.physicsBody!.categoryBitMask = PhysicsCategories.TriBlaster
+            triBlaster_left.physicsBody!.collisionBitMask = PhysicsCategories.None
+            triBlaster_left.physicsBody!.contactTestBitMask = PhysicsCategories.Enemy
+            self.addChild(triBlaster_left)
+            
+            let triBlaster_right = SKSpriteNode(imageNamed: "blaster")
+            triBlaster_right.name = "TriBlaster_Right"
+            triBlaster_right.setScale(0.75)
+            triBlaster_right.position = player.position
+            triBlaster_right.zPosition = 2
+            triBlaster_right.physicsBody = SKPhysicsBody(rectangleOf: triBlaster_right.frame.size)
+            triBlaster_right.physicsBody!.affectedByGravity = false
+            triBlaster_right.physicsBody!.categoryBitMask = PhysicsCategories.TriBlaster
+            triBlaster_right.physicsBody!.collisionBitMask = PhysicsCategories.None
+            triBlaster_right.physicsBody!.contactTestBitMask = PhysicsCategories.Enemy
+            self.addChild(triBlaster_right)
+            
+            let pointLeft = CGPoint(x: player.position.x - self.size.width / 2, y: self.size.height + player.position.y)
+            let pointRight = CGPoint(x: player.position.x + self.size.width / 1.5, y: self.size.height + player.position.y)
+
+            let moveTriBlaster_left = SKAction.move(to: pointLeft, duration: 1)
+            let moveTriBlaster = SKAction.moveTo(y: self.size.height + player.position.y, duration: 1)
+            let moveTriBlaster_right = SKAction.move(to: pointRight, duration: 1)
+            let deleteTriBlaster = SKAction.removeFromParent()
+            let deleteTriBlaster_left = SKAction.removeFromParent()
+            let deleteTriBlaster_right = SKAction.removeFromParent()
+            
+            let triBlasterSequence = SKAction.sequence([moveTriBlaster, deleteTriBlaster])
+            let triBlasterLeftSequence = SKAction.sequence([moveTriBlaster_left, deleteTriBlaster_left])
+            let triBlasterRightSequence = SKAction.sequence([moveTriBlaster_right, deleteTriBlaster_right])
+            triBlaster.run(triBlasterSequence)
+            triBlaster_right.run(triBlasterRightSequence)
+            triBlaster_left.run(triBlasterLeftSequence)
+            
+        }
+    }
+    
     func spawnEnemy(){
         let randomXStart = random(min: frame.minX, max: frame.maxX)
         let randomXEnd = random(min: frame.minX, max: frame.maxX)
@@ -311,6 +401,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemy.zRotation = amtRotate
     }
     
+    func spawnUpgradeCube(){
+        //let randomXStart = random(min: frame.minX, max: frame.maxX)
+        //let randomXEnd = random(min: frame.minX, max: frame.maxX)
+        
+        let startPoint = CGPoint(x: self.size.width / 2, y:self.size.height * 1.2)
+        let endPoint = CGPoint(x: self.size.width / 2, y: -self.size.height * 0.2)
+        
+        let upgradeCube = SKSpriteNode(imageNamed: "upgradeCube")
+        upgradeCube.name = "UpgradeCube"
+        upgradeCube.setScale(0.75)
+        upgradeCube.position = startPoint
+        upgradeCube.physicsBody = SKPhysicsBody(rectangleOf: upgradeCube.frame.size)
+        upgradeCube.physicsBody!.affectedByGravity = false
+        upgradeCube.physicsBody!.categoryBitMask = PhysicsCategories.UpgradeCube
+        upgradeCube.physicsBody!.collisionBitMask = PhysicsCategories.None
+        upgradeCube.physicsBody!.contactTestBitMask = PhysicsCategories.Player
+        self.addChild(upgradeCube)
+        
+        let moveUpgradeCube = SKAction.move(to: endPoint, duration: 6)
+        let deleteUpgradeCube = SKAction.removeFromParent()
+        let upgradeSeq = SKAction.sequence([moveUpgradeCube, deleteUpgradeCube])
+        upgradeCube.run(upgradeSeq)
+        
+    }
+    
     func makeBackgroundLayer(filename: String, speed: TimeInterval, layer: Int) {
         let bgLayer = SKTexture(imageNamed: filename)
         let shiftBG = SKAction.moveBy(x: 0, y: -bgLayer.size().height, duration: speed)
@@ -330,7 +445,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        fireBlaster()
+        
+        if currentWeapon == weaponsUpgrade.upgradeBlaster{
+            triBlaster()
+        }
+        else {
+            fireBlaster()
+        }
+        
     }
     
     func processUserMotion(forUpdate currentTime: CFTimeInterval) {

@@ -19,6 +19,8 @@ You are the last remaining pilot trained on the newest experimental aircraft.  A
 
 2. Firing - Tapping anywhere on the screen fires your blaster
 
+3. Upgrade Weapons - If you haven't upgraded already, when you level up an upgrade cube appears on screen.  If you run into it with your ship, your blaster turns into a tri-directional blaster
+
 3. Scoring - Every enemy ship that is destroyed gives you 10 points.  Any ship that gets by you subtracts a point from your score.
 
 4. Levels - You start on level 1.  When you reach 50 points, you go to level 2.  100 -> level 3.  150 -> level 4... etc.  As you increase levels the difficulty increases by increasing the rate at which enemy ships are spawned.
