@@ -1,19 +1,18 @@
-# Remember Rickenbacker
+![logo](https://github.com/jermyser/RememberRickenbacker/blob/master/logo.png "logo")
 An iOS Space Shooter
 
 ---
 
-## Hero Spacecraft
-Early stage of sprite developmemt for hero spacecraft:
+## Objective
+You are the last remaining pilot trained on the newest experimental aircraft.  After your base has been destroyed in a sudden alien invasion, it is up to you to eliminate the threat and save the remainder of humanity.  Your mission is simple...
 
-![Player Ship Being Constructed](https://github.com/jermyser/RememberRickenbacker/blob/master/goodGuy_0.3.0.png "Player Ship Being Constructed")
+**_Destroy ALL the invaders!_**
 
----
+## How to Play
+### Main Menu
+1. New Game - This option starts a new game
 
-## Enemy Spacecraft
-### COMPLETE
-Final version of enemy craft:
+2. Scores - View the current high score
 
-![Enemy Ship](https://github.com/jermyser/RememberRickenbacker/blob/master/badguy_FINAL.png "Enemy Ship")
+### Game Play
 
----
