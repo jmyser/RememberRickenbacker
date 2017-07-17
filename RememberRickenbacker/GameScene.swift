@@ -112,7 +112,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
         }
         else {
-            setupShip()
+            let respawn = SKAction.run(setupShip)
+            let waitToRespawn = SKAction.wait(forDuration: 1)
+            let respawnSeq = SKAction.sequence([waitToRespawn, respawn])
+            self.run(respawnSeq)
         }
         
     }
