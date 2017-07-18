@@ -351,7 +351,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.addChild(triBlaster_right)
             
             let pointLeft = CGPoint(x: player.position.x - self.size.width / 2, y: self.size.height + player.position.y)
-            let pointRight = CGPoint(x: player.position.x + self.size.width / 1.5, y: self.size.height + player.position.y)
+            let pointRight = CGPoint(x: player.position.x + self.size.width / 2, y: self.size.height + player.position.y)
 
             let moveTriBlaster_left = SKAction.move(to: pointLeft, duration: 1)
             let moveTriBlaster = SKAction.moveTo(y: self.size.height + player.position.y, duration: 1)

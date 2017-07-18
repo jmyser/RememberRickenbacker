@@ -10,16 +10,15 @@ You are the last remaining pilot trained on the newest experimental aircraft.  A
 
 ## How to Play
 ### Main Menu
-1. New Game - This option starts a new game
-
-2. Scores - View the current high score
+There is the logo for the game as well as a display for the record high score.
+New Game - This n starts a new game
 
 ### Game Play
 1. Movement - Spaceship is controled with device accelerometers...  Tilt your device to the left, ship goes left.  Tilt right, ship goes right.
 
 2. Firing - Tapping anywhere on the screen fires your blaster
 
-3. Upgrade Weapons - If you haven't upgraded already, when you level up an upgrade cube appears on screen.  If you run into it with your ship, your blaster turns into a tri-directional blaster
+3. Upgrade Weapons - If you haven't upgraded already, when you level up an upgrade cube appears on screen.  If you run into it with your ship, your blaster turns into a tri-directional blaster.  If you lose a life, you go back to a normal blaster but you can upgrade again the next time you level up.
 
 3. Scoring - Every enemy ship that is destroyed gives you 10 points.  Any ship that gets by you subtracts a point from your score.
 
