@@ -414,6 +414,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         upgradeCube.name = "UpgradeCube"
         upgradeCube.setScale(0.75)
         upgradeCube.position = startPoint
+        upgradeCube.zPosition = 3
         upgradeCube.physicsBody = SKPhysicsBody(rectangleOf: upgradeCube.frame.size)
         upgradeCube.physicsBody!.affectedByGravity = false
         upgradeCube.physicsBody!.categoryBitMask = PhysicsCategories.UpgradeCube

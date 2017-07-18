@@ -19,6 +19,12 @@ _PASS_ / FAIL - Control movement with device accelerometers _Working almost as e
 ### Spawning Enemies
 **PASS** / FAIL - Enemies spawn at a variable rate depending on the level. _Working as expected_
 
+### Kill Enemies
+**PASS** / FAIL - Enemies die when hit with blaster. _Working as expected_
+
+### Player Death
+**PASS** / FAIL - Player dies and loses a life upon collision with enemy. _Working as expected_
+
 ### Upgrading Weapons
 _PASS_ / FAIL - Possible to upgrade weapon to tri-blaster. _Working as expected for the most part.  If you don't already have the upgrade an upgrade icon appears when you level up.  If you fly into it, you get the upgraded tri-blaster_
 
