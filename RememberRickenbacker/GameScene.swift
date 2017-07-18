@@ -103,6 +103,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         livesNumber -= 1
         livesLabel.text = "Lives: \(livesNumber)"
         
+        currentWeapon = weaponsUpgrade.normalBlaster
+        
         if livesNumber == 0 {
             currentGameState = gameState.afterGame
             gameOverLabel.text = "GAME OVER"
