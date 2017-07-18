@@ -4,7 +4,9 @@ List functional requirements and test functionality
 
 ## Main Menu
 **PASS** / FAIL - Display logo. _Working as expected_
+
 **PASS** / FAIL - Display historical high score. _Working as expected_
+
 **PASS** / FAIL - Button to start a new game. _Working as expected_
 
 ## Game Play
@@ -22,12 +24,16 @@ _PASS_ / FAIL - Possible to upgrade weapon to tri-blaster. _Working as expected 
 
 ### UI Elements
 **PASS** / FAIL - Scoreboard to track scores. _Working as expected_
+
 **PASS** / FAIL - Display current level _Working as expected.  Flashes when new level is reached_
+
 **PASS** / FAIL - Display number of lives left. _Working as expected_
 
 ## Game Over Screen
 **PASS** / FAIL - Populate most recent high score. _Working as expected_
+
 **PASS** / FAIL - Populate historical highest score. _Working as expected.  High score is persistent across restarts of app_
+
 **PASS** / FAIL - Button to restart a new game. _Working as expected_
 
 
